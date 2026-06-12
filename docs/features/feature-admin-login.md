@@ -1,6 +1,6 @@
 Commit ID: fb8adba
 Feature Added: BoundaryLine Admin Login Page
-Date: 12-06-2026
+Date: 2026-06-12
 
 Files Added:
 - client/src/pages/admin/AdminLoginPage.jsx
@@ -25,7 +25,7 @@ BrandPanel
 - Displays the BoundaryLine admin brand message, live scorecard badge, cricket-stadium visual, and quick platform stats.
 - Provides the visual identity for admin authentication screens.
 - Can be reused on future auth screens such as request access or password reset.
-- Uses local static stat data inside the component and does not require props currently.
+- Uses static data inside the component and does not require props currently.
 
 LoginForm
 - Handles the admin login form UI with email, password, remember-me, Google sign-in action, and request-access link.
@@ -36,5 +36,5 @@ LoginForm
 Verification:
 - npm.cmd run lint
 - npm.cmd run build
-- Desktop Playwright screenshot: C:\tmp\boundaryline-admin-login.png
-- Mobile Playwright screenshot: C:\tmp\boundaryline-admin-login-mobile.png
+- Desktop Playwright viewport check
+- Mobile Playwright viewport check
