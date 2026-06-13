@@ -18,8 +18,10 @@ class MatchRepository {
   async create(payload) {
     // What: insert a new match document.
     // Why: repository owns database writes and keeps service code focused on business rules.
-    // How: call Mongoose create with the validated payload.
-    return Match.create(payload);
+    // How: call Mongoose create, then convert the returned document to a plain object.
+    const match = await Match.create(payload);
+
+    return match.toObject();
   }
 
   async updateById(matchId, payload) {

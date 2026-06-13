@@ -13,13 +13,14 @@ export function errorHandler(error, _req, res, _next) {
   // How: prefer AppError fields, otherwise fall back to 500 Internal Server Error.
   const statusCode = error.statusCode || 500;
   const message = error.isOperational ? error.message : "Internal server error";
+  const details = error.isOperational && error.details ? error.details : null;
 
-  // What: include details only when they exist.
-  // Why: validation details help clients, but empty fields add noise.
-  // How: conditionally spread details into the response body.
+  // What: include details only for trusted operational errors.
+  // Why: unexpected errors may carry internal data that should not leak to clients.
+  // How: conditionally spread details after checking `isOperational`.
   res.status(statusCode).json({
     success: false,
     message,
-    ...(error.details ? { details: error.details } : {}),
+    ...(details ? { details } : {}),
   });
 }

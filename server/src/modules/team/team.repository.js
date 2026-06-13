@@ -37,8 +37,10 @@ class TeamRepository {
   async create(payload) {
     // What: insert a new team document.
     // Why: repository owns database writes so service logic stays database-agnostic.
-    // How: call Mongoose create with the validated payload.
-    return Team.create(payload);
+    // How: call Mongoose create, then convert the returned document to a plain object.
+    const team = await Team.create(payload);
+
+    return team.toObject();
   }
 
   async updateById(teamId, payload) {

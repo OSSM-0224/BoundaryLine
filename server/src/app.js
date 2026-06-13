@@ -30,7 +30,10 @@ export default function createApp() {
 
     app.use(express.json());
 
-    if (env.NODE_ENV === "production") {
+    // What: enable compact request logging during local development.
+    // Why: `morgan("dev")` is noisy and is intended for debugging, not production traffic.
+    // How: only attach it when the environment is not production.
+    if (env.NODE_ENV !== "production") {
         app.use(morgan("dev"));
     }
 
