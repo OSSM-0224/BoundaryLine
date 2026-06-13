@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import matchReducer from "../../features/scoreboard/store/mathSlice.js";
-import { UserRole } from "../../type.js";
+import { UserRole } from "../../features/scorer-console/pages/type.js";
 
 const authPlaceholderSlice = createSlice({
   name: "auth",

@@ -434,7 +434,7 @@ function TopNav() {
     <nav className="fixed top-0 w-full z-50 bg-[#111316]/80 backdrop-blur-xl border-b border-white/10 shadow-sm h-20">
       <div className="flex justify-between items-center px-6 h-full max-w-[1440px] mx-auto">
         <div className="flex items-center gap-10">
-          <span className="text-2xl font-bold text-[#94d5a5]">CricPulse</span>
+          <span className="text-2xl font-bold text-[#94d5a5]">BoundaryLine</span>
           <div className="hidden md:flex items-center gap-6">
             {["Scores", "Schedule", "Teams", "Players", "Rankings", "News"].map(
               (item) => (
