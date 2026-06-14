@@ -9,7 +9,7 @@ export default class AuthService {
   }
 
   async CreateUser(user) {
-    // pehle check karo ki user exist krta hai ya nahi db mey
+    // first check the user already exists in the db or not
     const isExist = await this.userRepo.findByEmail(user.emails[0].value);
     let result = isExist;
 

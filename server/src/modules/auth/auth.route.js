@@ -1,5 +1,5 @@
 import express from "express";
-import googleOAuthMiddleware from "../../middlewares/googleOAuth.middleware.js";
+import googleOAuthMiddleware from "../../middleware/googleOAuth.middleware.js";
 import passport from "passport";
 import AuthController from "./auth.controller.js";
 
