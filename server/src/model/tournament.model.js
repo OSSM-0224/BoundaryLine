@@ -43,11 +43,5 @@ const tournamentSchema = mongoose.Schema({
     timestamps: true
 });
 
-seriesSchema.path("teams").validate(
-    function(teams){
-        return teams.length >= 2;
-    },
-    "Series must have atleast 2 teams"
-)
 
 export const TournamentModel = mongoose.model("Tournament", tournamentSchema);
