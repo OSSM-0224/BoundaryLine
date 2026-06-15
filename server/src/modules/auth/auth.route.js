@@ -14,6 +14,8 @@ router.get(
   }),
 );
 
+router.patch("/make-admin", authController.makeAdmin.bind(authController));
+
 router.get(
   "/google/callback",
   passport.authenticate("google", { session: false }),
