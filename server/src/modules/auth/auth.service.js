@@ -2,7 +2,7 @@ import { app_config } from "../../constant/app.constant.js";
 import UserRepo from "../../repository/user.repository.js";
 import env from "../../config/env.js";
 import jwt from "jsonwebtoken";
-import AppError from "../../shared/error/app.error.js";
+import AppError from "../../shared/error/AppError.js";
 import { StatusCodes } from "http-status-codes";
 import NotFound from "../../shared/error/notFound.error.js";
 

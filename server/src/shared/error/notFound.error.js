@@ -1,4 +1,4 @@
-import AppError from "./app.error.js";
+import AppError from "./AppError.js";
 import { StatusCodes } from "http-status-codes";
 
 export default class NotFound extends AppError {

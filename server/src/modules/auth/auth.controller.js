@@ -1,7 +1,7 @@
 import { app_config } from "../../constant/app.constant.js";
 import AuthService from "./auth.service.js";
 import env from "../../config/env.js";
-import AppError from "../../shared/error/app.error.js";
+import AppError from "../../shared/error/AppError.js";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
 
