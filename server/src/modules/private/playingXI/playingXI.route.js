@@ -1,76 +1,60 @@
 import { Router } from "express";
-
-import PlayingXIController from "./playing-xi.controller.js";
-
-import { validate } from "../../../shared/middlewares/validate.js";
-
+import { validateRequest } from "../../../middleware/validateRequest.js";
+import PlayingXIController from "./playingXI.controller.js";
 import {
   authMiddleware,
   authorizationMiddleware,
-} from "../../../middlewares/auth.middleware.js";
-
-import { ROLES } from "../../../constant/roles.constant.js";
-
+} from "../../../middleware/auth.middleware.js";
+import { ROLES } from "../../../constant/role.constant.js";
 import {
   createPlayingXISchema,
   updatePlayingXISchema,
   playingXIIdSchema,
-} from "./playing-xi.validation.js";
+} from "../../../validators/playingXI.validator.js";
 
-const router = Router();
+class PlayingXIRoute {
+  constructor(playingXIController = new PlayingXIController()) {
+    this.router = Router();
+    this.playingXIController = playingXIController;
+    this.registerRoutes();
+  }
 
-const playingXIController =
-  new PlayingXIController();
+  registerRoutes() {
+    const ADMIN_ROLES = [ROLES.ADMIN, ROLES.SUPER_ADMIN];
 
-const ADMIN_ROLES = [
-  ROLES.ADMIN,
-  ROLES.SUPER_ADMIN,
-];
+    this.router.post(
+      "/",
+      authMiddleware,
+      authorizationMiddleware(ADMIN_ROLES),
+      validateRequest(createPlayingXISchema),
+      this.playingXIController.createPlayingXI,
+    );
 
-/**
- * Public
- */
+    this.router.patch(
+      "/:id",
+      authMiddleware,
+      authorizationMiddleware(ADMIN_ROLES),
+      validateRequest({
+        ...playingXIIdSchema,
+        ...updatePlayingXISchema,
+      }),
+      this.playingXIController.updatePlayingXI,
+    );
 
-router.get(
-  "/",
-  playingXIController.listPlayingXIs
-);
+    this.router.delete(
+      "/:id",
+      authMiddleware,
+      authorizationMiddleware(ADMIN_ROLES),
+      validateRequest(playingXIIdSchema),
+      this.playingXIController.deletePlayingXI,
+    );
+  }
 
-router.get(
-  "/:id",
-  validate(playingXIIdSchema),
-  playingXIController.getPlayingXI
-);
+  getRouter() {
+    return this.router;
+  }
+}
 
-/**
- * Protected
- */
+const playingXIRoute = new PlayingXIRoute();
 
-router.post(
-  "/",
-  authMiddleware,
-  authorizationMiddleware(ADMIN_ROLES),
-  validate(createPlayingXISchema),
-  playingXIController.createPlayingXI
-);
-
-router.patch(
-  "/:id",
-  authMiddleware,
-  authorizationMiddleware(ADMIN_ROLES),
-  validate({
-    ...playingXIIdSchema,
-    ...updatePlayingXISchema,
-  }),
-  playingXIController.updatePlayingXI
-);
-
-router.delete(
-  "/:id",
-  authMiddleware,
- authorizationMiddleware(ADMIN_ROLES),
-  validate(playingXIIdSchema),
-  playingXIController.deletePlayingXI
-);
-
-export default router;
+export default playingXIRoute.getRouter();

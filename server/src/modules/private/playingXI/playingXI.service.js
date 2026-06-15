@@ -1,4 +1,4 @@
-import PlayingXIRepository from "../../../repository/playing-xi.repository.js";
+import PlayingXIRepository from "../../../repository/playingXI.repository.js";
 import MatchRepository from "../../../repository/match.repository.js";
 import TeamRepository from "../../../repository/team.repository.js";
 import SquadRepository from "../../../repository/squad.repository.js";
@@ -8,11 +8,16 @@ import Conflict from "../../../shared/error/Conflict.js";
 import AppError from "../../../shared/error/AppError.js";
 
 class PlayingXIService {
-  constructor() {
-    this.playingXIRepository = PlayingXIRepository;
-    this.matchRepository = MatchRepository;
-    this.teamRepository = TeamRepository;
-    this.squadRepository = SquadRepository;
+  constructor(
+    playingXIRepository = new PlayingXIRepository(),
+    matchRepository = new MatchRepository(),
+    teamRepository = new TeamRepository(),
+    squadRepository = new SquadRepository(),
+  ) {
+    this.playingXIRepository = playingXIRepository;
+    this.matchRepository = matchRepository;
+    this.teamRepository = teamRepository;
+    this.squadRepository = squadRepository;
   }
 
   async getPlayingXIs() {
@@ -20,8 +25,7 @@ class PlayingXIService {
   }
 
   async getPlayingXIById(id) {
-    const playingXI =
-      await this.playingXIRepository.findById(id);
+    const playingXI = await this.playingXIRepository.findById(id);
 
     if (!playingXI) {
       throw new NotFound("Playing XI not found");
@@ -31,132 +35,84 @@ class PlayingXIService {
   }
 
   async createPlayingXI(payload) {
-    const {
-      matchId,
-      teamId,
-      players,
-      captain,
-      viceCaptain,
-      wicketKeeper,
-    } = payload;
+    const { matchId, teamId, players, captain, viceCaptain, wicketKeeper } =
+      payload;
 
-    const match =
-      await this.matchRepository.findById(matchId);
+    const match = await this.matchRepository.findById(matchId);
 
     if (!match) {
       throw new NotFound("Match not found");
     }
 
-    const team =
-      await this.teamRepository.findById(teamId);
+    const team = await this.teamRepository.findById(teamId);
 
     if (!team) {
       throw new NotFound("Team not found");
     }
 
-    const existingPlayingXI =
-      await this.playingXIRepository.findByMatchAndTeam(
-        matchId,
-        teamId
-      );
+    const existingPlayingXI = await this.playingXIRepository.findByMatchAndTeam(
+      matchId,
+      teamId,
+    );
 
     if (existingPlayingXI) {
-      throw new Conflict(
-        "Playing XI already submitted"
-      );
+      throw new Conflict("Playing XI already submitted");
     }
 
     if (players.length !== 11) {
-      throw new AppError(
-        "Playing XI must contain exactly 11 players",
-        400
-      );
+      throw new AppError("Playing XI must contain exactly 11 players", 400);
     }
 
     const playerSet = new Set(players);
 
     if (playerSet.size !== players.length) {
-      throw new AppError(
-        "Duplicate players are not allowed",
-        400
-      );
+      throw new AppError("Duplicate players are not allowed", 400);
     }
 
     if (!players.includes(captain)) {
-      throw new AppError(
-        "Captain must be part of Playing XI",
-        400
-      );
+      throw new AppError("Captain must be part of Playing XI", 400);
     }
 
     if (!players.includes(viceCaptain)) {
-      throw new AppError(
-        "Vice Captain must be part of Playing XI",
-        400
-      );
+      throw new AppError("Vice Captain must be part of Playing XI", 400);
     }
 
     if (!players.includes(wicketKeeper)) {
-      throw new AppError(
-        "Wicket Keeper must be part of Playing XI",
-        400
-      );
+      throw new AppError("Wicket Keeper must be part of Playing XI", 400);
     }
 
-    const squad =
-      await this.squadRepository.findBySeriesAndTeam(
-        match.seriesId,
-        teamId
-      );
+    const squad = await this.squadRepository.findBySeriesAndTeam(
+      match.seriesId,
+      teamId,
+    );
 
     if (!squad) {
       throw new NotFound("Squad not found");
     }
 
-    const squadPlayers = squad.players.map(
-      (player) => player.toString()
-    );
+    const squadPlayers = squad.players.map((player) => player.toString());
 
     const invalidPlayers = players.filter(
-      (player) =>
-        !squadPlayers.includes(player.toString())
+      (player) => !squadPlayers.includes(player.toString()),
     );
 
     if (invalidPlayers.length > 0) {
-      throw new AppError(
-        "All players must belong to squad",
-        400
-      );
+      throw new AppError("All players must belong to squad", 400);
     }
 
     return this.playingXIRepository.create(payload);
   }
 
   async updatePlayingXI(id, payload) {
-    const playingXI =
-      await this.playingXIRepository.findById(id);
+    await this.getPlayingXIById(id);
 
-    if (!playingXI) {
-      throw new NotFound("Playing XI not found");
-    }
-
-    return this.playingXIRepository.updateById(
-      id,
-      payload
-    );
+    return this.playingXIRepository.updateById(id, payload);
   }
 
   async deletePlayingXI(id) {
-    const playingXI =
-      await this.playingXIRepository.findById(id);
+    await this.getPlayingXIById(id);
 
-    if (!playingXI) {
-      throw new NotFound("Playing XI not found");
-    }
-
-    return this.playingXIRepository.softDeleteById(
-      id
-    );
+    return this.playingXIRepository.softDeleteById(id);
   }
 }
 
