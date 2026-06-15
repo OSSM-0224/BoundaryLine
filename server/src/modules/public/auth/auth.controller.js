@@ -4,6 +4,7 @@ import AppError from "../../../shared/error/AppError.js";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
 import env from "../../../config/env.js";
+import buildSuccessResponse from "../../../shared/successResponse/buildSuccessResponse.js";
 
 export default class AuthController {
   constructor() {
@@ -16,6 +17,18 @@ export default class AuthController {
     res.json({
       success: true,
       message: "User promoted to ADMIN",
+    });
+  }
+
+  async getMe(req, res) {
+    res.status(200).json(new buildSuccessResponse("User verified", req.user));
+  }
+
+  async refreshAccessToken(req, res) {
+    const { accessToken } = this.userService.refreshAccessToken(req.cookies);
+    res.cookie("accessToken", accessToken, app_config().cookie.accessToken);
+    return res.status(StatusCodes.OK).json({
+      messgae: "Token generated successfully",
     });
   }
 

@@ -15,6 +15,16 @@ export default class AuthService {
     return await this.userRepo.findOneAndUpdate({ email }, { role: "ADMIN" });
   }
 
+  async refreshAccessToken(refreshToken) {
+    if (!refreshToken) throw new NotFound("Token expired");
+
+    const payload = jwt.verify(refreshToken, env.REFRESH_TOKEN_SECRET);
+
+    const accessToken = jwt.sign(payload, env.ACCESS_TOKEN_SECRET);
+    return { accessToken };
+  }
+  
+
   async createOrFindUser(payload) {
     // first check the user already exists in the db or not
     const isExist = await this.userRepo.findByEmail(payload.email);
