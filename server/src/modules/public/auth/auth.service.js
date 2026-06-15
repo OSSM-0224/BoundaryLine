@@ -1,6 +1,6 @@
-import { app_config } from "../../constant/app.constant.js";
-import UserRepo from "../../repository/user.repository.js";
-import env from "../../config/env.js";
+import { app_config } from "../../../constant/app.constant.js";
+import UserRepo from "../../../repository/user.repository.js";
+import env from "../../../config/env.js";
 import jwt from "jsonwebtoken";
 
 export default class AuthService {
