@@ -23,7 +23,6 @@ function registerFeatureRoutes(app, prefix) {
   app.use(`${prefix}/teams`, teamRoute);
   app.use(`${prefix}/matches`, matchRoute);
   app.use(`${prefix}/commentary`, commentaryRouter);
-  app.use('/health', healthRouter);
 }
 
 export default function createApp() {
@@ -32,7 +31,6 @@ export default function createApp() {
   // What: enable compact request logging during local development.
   // Why: `morgan("dev")` is noisy and is intended for debugging, not production traffic.
   // How: only attach it when the environment is not production.
-  // this code will only work in production
   if (env.NODE_ENV === "development") {
     app.use(morgan(env.MORGAN_LOGGER));
   }
@@ -42,6 +40,9 @@ export default function createApp() {
 
   registerFeatureRoutes(app, "/api");
   registerFeatureRoutes(app, "/api/v1");
+  app.use("/health", healthRouter);
+  app.use("/api/health", healthRouter);
+  app.use("/api/v1/health", healthRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

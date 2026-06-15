@@ -4,8 +4,16 @@ import { ROLES } from "../constant/role.constant.js";
 
 const userSchema = new mongoose.Schema({
     name: {type: String, required: true, trim: true},
-    email: {type: String, required: true, trim:true, lowercase:true},
-    password: {type: String, required: true, minlength: 6},
+    email: {type: String, required: true, trim:true, lowercase:true, unique: true},
+    googleId: {type: String, trim: true, unique: true, sparse: true},
+    password: {
+      type: String,
+      required() {
+        return !this.googleId;
+      },
+      minlength: 6,
+      select: false,
+    },
     role: {type: String, enum: Object.values(ROLES), default: ROLES.SCORER},
     isDeleted: {type: Boolean, default: false},
     picture: {  
@@ -18,4 +26,4 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.models.User || mongoose.model("User", userSchema);

@@ -14,9 +14,10 @@ export default class AuthService {
     let result = isExist;
 
     if (!isExist) {
-      const newUser = await this.userRepo.create({
+      const newUser = await this.userRepo.createUser({
+        googleId: user.id,
         email: user.emails[0].value,
-        picture: user.photos[0].value,
+        picture: user.photos?.[0]?.value,
         name: user.displayName,
       });
       result = newUser;
@@ -26,20 +27,20 @@ export default class AuthService {
       _id: result._id,
       email: user.emails[0].value,   
       name: user.displayName,
-      picture: user.photos[0].value,
+      picture: user.photos?.[0]?.value,
       role: result.role,
     };
 
     const accessToken = jwt.sign(
       data,
       env.ACCESS_TOKEN_SECRET,
-      app_config().jwt.accessToken,
+      app_config(env.NODE_ENV).jwt.accessToken,
     );
 
     const refreshToken = jwt.sign(
       data,
       env.REFRESH_TOKEN_SECRET,
-      app_config().jwt.refreshToken,
+      app_config(env.NODE_ENV).jwt.refreshToken,
     );
 
     return { accessToken, refreshToken };

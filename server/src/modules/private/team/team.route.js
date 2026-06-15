@@ -6,6 +6,8 @@ import {
   teamIdParamSchema,
   updateTeamSchema,
 } from "../../../validators/team.validator.js";
+import { authenticateRequest, authorizeRoles } from "../../../middleware/auth.middleware.js";
+import { ROLES } from "../../../constant/role.constant.js";
 
 class TeamRoute {
   constructor(teamController = new TeamController()) {
@@ -29,16 +31,22 @@ class TeamRoute {
     );
     this.router.post(
       "/",
+      authenticateRequest,
+      authorizeRoles([ROLES.ADMIN, ROLES.SUPER_ADMIN]),
       validateRequest(createTeamSchema),
       this.teamController.createTeam,
     );
     this.router.patch(
       "/:id",
+      authenticateRequest,
+      authorizeRoles([ROLES.ADMIN, ROLES.SUPER_ADMIN]),
       validateRequest(updateTeamSchema),
       this.teamController.updateTeam,
     );
     this.router.delete(
       "/:id",
+      authenticateRequest,
+      authorizeRoles([ROLES.ADMIN, ROLES.SUPER_ADMIN]),
       validateRequest(teamIdParamSchema),
       this.teamController.deleteTeam,
     );

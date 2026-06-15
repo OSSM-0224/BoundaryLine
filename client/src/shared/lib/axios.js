@@ -56,7 +56,7 @@ apiClient.interceptors.response.use(
           }
           return apiClient(originalRequest);
         }
-      } catch (refreshError) {
+      } catch {
         console.error("[BoundaryLine API] Token refresh process failed. Terminating user session.");
         localStorage.removeItem("boundaryline_token");
         localStorage.removeItem("boundaryline_refresh_token");

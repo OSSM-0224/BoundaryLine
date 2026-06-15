@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { undoScore, syncScores, changeBowler, dismissBanner, updateBallEvent } from "../../scoreboard/store/mathSlice.js";
 import { useSocket } from "../../../shared/services/socket/useSocket.js";
@@ -17,12 +17,10 @@ export const ScorerConsolePage = ({ onViewScoreboard }) => {
   const isSynced = useSelector(s => s.match.isSynced), { emitScoreUpdate } = useSocket();
   const [activeModal, setActiveModal] = useState("NONE"), [tempRuns, setTempRuns] = useState(1);
   const rosters = useSelector(s => s.match.rosters || {}), currentRosterA = rosters[match.teamA.id] || [], currentRosterB = rosters[match.teamB.id] || [];
-  const [selectedXI_A, setSelectedXI_A] = useState([]), [selectedXI_B, setSelectedXI_B] = useState([]);
+  const [selectedXI_A, setSelectedXI_A] = useState(() => currentRosterA.slice(0, 11));
+  const [selectedXI_B, setSelectedXI_B] = useState(() => currentRosterB.slice(0, 11));
 
-  useEffect(() => { setSelectedXI_A(currentRosterA.slice(0, 11)); }, [currentRosterA.length, match.teamA.id]);
-  useEffect(() => { setSelectedXI_B(currentRosterB.slice(0, 11)); }, [currentRosterB.length, match.teamB.id]);
-
-  const { wicketType, setWicketType, outBatterId, setOutBatterId, fielderId, setFielderId, keeperId, setKeeperId, wicketBowlerId, setWicketBowlerId, newBatterId, setNewBatterId, initWicketFlow, confirmWicket } = useWicketFlow({ match, activeInnings, dispatch, setActiveModal });
+  const { wicketType, setWicketType, outBatterId, setOutBatterId, fielderId, setFielderId, keeperId, setKeeperId, newBatterId, setNewBatterId, initWicketFlow, confirmWicket } = useWicketFlow({ match, activeInnings, dispatch, setActiveModal });
   const { setupStep, setSetupStep, tossWinner, setTossWinner, tossDecision, setTossDecision, newMatchTitle, setNewMatchTitle, newMatchSubtitle, setNewMatchSubtitle, newTeamAName, setNewTeamAName, newTeamBName, setNewTeamBName, wizardStrikerId, setWizardStrikerId, wizardNonStrikerId, setWizardNonStrikerId, wizardBowlerId, setWizardBowlerId, handleCreateDynamicMatch, initWizardOpeningRoles, handleStartMatch } = useMatchSetup({ match, selectedXI_A, selectedXI_B, dispatch });
   const { newPlayerName, setNewPlayerName, newPlayerRole, setNewPlayerRole, handleAddManualPlayer, handleXLSXImportSimulation } = useRosterImporter({ match, dispatch });
   const [searchQueryA, setSearchQueryA] = useState(""), [searchQueryB, setSearchQueryB] = useState("");

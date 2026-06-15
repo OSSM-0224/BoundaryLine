@@ -6,8 +6,8 @@ dotenv.config();
 // creating zod object to validate env Schema
 const envSchema = z.object({
   PORT: z.coerce.number().default(appConstant.PORT),
-  MONGO_URI: z.string().default(appConstant.MONGO_URI),
-  NODE_ENV: z.string().default(appConstant.NODE_ENV),
+  MONGO_URI: z.string().trim().min(1).default(appConstant.MONGO_URI),
+  NODE_ENV: z.enum(["development", "production", "test"]).default(appConstant.NODE_ENV),
 
   // Loggers
   LOGGER_LEVEL: z.string().default(appConstant.LOGGER_LEVEL),
@@ -22,24 +22,24 @@ const envSchema = z.object({
   DATA_LIMIT: z.string().default(appConstant.DATA_LIMIT),
 
   // Google OAuth Credentials
-  GOOGLE_CLIENT_ID: z.string(),
-  GOOGLE_CLIENT_SECRET: z.string(),
-  GOOGLE_CALLBACK_URL: z.string(),
+  GOOGLE_CLIENT_ID: z.string().trim().min(1),
+  GOOGLE_CLIENT_SECRET: z.string().trim().min(1),
+  GOOGLE_CALLBACK_URL: z.string().trim().url(),
 
   // Redirect url
-  REDIRECT_URL: z.string(),
+  REDIRECT_URL: z.string().trim().url(),
 
   // Token Secrets
-  ACCESS_TOKEN_SECRET: z.string(),
-  REFRESH_TOKEN_SECRET: z.string(),
+  ACCESS_TOKEN_SECRET: z.string().trim().min(16),
+  REFRESH_TOKEN_SECRET: z.string().trim().min(16),
 });
 
 // parsing env for correct format
 const parsed = envSchema.safeParse(process.env);
 
-if(!parsed.success){
-    console.error(parsed.error.format());
-    process.exit(1);
+if (!parsed.success) {
+  console.error(z.treeifyError(parsed.error));
+  process.exit(1);
 }
 
 export default parsed.data;

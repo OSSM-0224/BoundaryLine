@@ -81,7 +81,7 @@ function Badge({ color = "secondary", children }) {
 }
 
 /** Live score card used in the carousel */
-function LiveMatchCard({ type, accentVariant, label, team1, team2, status }) {
+function LiveMatchCard({ accentVariant, label, team1, team2, status }) {
   return (
     <GlassCard
       accentVariant={accentVariant}

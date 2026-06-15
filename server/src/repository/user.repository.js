@@ -21,6 +21,10 @@ export default class UserRepo {
     return await userModel.findOne(payload)
   }
 
+  async create(payload) {
+    return this.createUser(payload);
+  }
+
   // function to find all users by ROLES.SUPER_ADMIN
   // async findAll(){
   //     return await userModel.findAll();

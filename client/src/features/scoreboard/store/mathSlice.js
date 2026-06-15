@@ -591,8 +591,8 @@ const matchSlice = createSlice({
       }
 
       // Generate precise visual string and out description
-      let notation = "";
-      let detailDesc = "";
+      let notation;
+      let detailDesc;
 
       switch (dismissalType) {
         case "BOWLED":
@@ -771,12 +771,6 @@ const matchSlice = createSlice({
         "Sharp delivery beat the bat, keeper gathers cleanly.",
         "Good variation, blocker back to the bowler.",
       ];
-      const commentaryPhrasesRuns = [
-        "Pushed softly into the gap for a quick run.",
-        "Played into deep canvas, strikers gather a brace comfortably.",
-        "Smart placement through single channel for runs."
-      ];
-
       switch (type) {
         case "RUN":
           ballRepresentative = runs === 0 ? "0" : runs.toString();
@@ -884,8 +878,8 @@ const matchSlice = createSlice({
 
       // Append Smart Commentary with variations
       const commentaryOver = `${activeInnings.overs}.${activeInnings.balls}`;
-      let cTitle = `${commentaryOver} • ${runsIncurred} Run${runsIncurred === 1 ? "" : "s"}`;
-      let cDesc = "";
+      let cTitle;
+      let cDesc;
       let cCategory = "NORMAL";
 
       const bowlerName = activeBowler?.name || "Bowler";

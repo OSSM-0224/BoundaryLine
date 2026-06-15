@@ -8,12 +8,13 @@ export default class AuthController {
   }
 
   async GoogleCallback(req, res) {
+    const config = app_config(env.NODE_ENV);
     const { accessToken, refreshToken } = await this.userService.CreateUser(
       req.user,
     );
 
-    res.cookie("accessToken", accessToken, app_config().jwt.accessToken);
-    res.cookie("refreshToken", refreshToken, app_config().jwt.refreshToken);
+    res.cookie("accessToken", accessToken, config.cookie.accessToken);
+    res.cookie("refreshToken", refreshToken, config.cookie.refreshToken);
 
     res.redirect(env.REDIRECT_URL);
   }

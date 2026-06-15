@@ -6,6 +6,8 @@ import {
   matchIdParamSchema,
   updateMatchSchema,
 } from "../../../validators/match.validator.js";
+import { authenticateRequest, authorizeRoles } from "../../../middleware/auth.middleware.js";
+import { ROLES } from "../../../constant/role.constant.js";
 
 class MatchRoute {
   constructor(matchController = new MatchController()) {
@@ -23,9 +25,27 @@ class MatchRoute {
     // How: validate request input before calling class-based controller handlers.
     this.router.get("/", this.matchController.listMatches);
     this.router.get("/:id", validateRequest(matchIdParamSchema), this.matchController.getMatch);
-    this.router.post("/", validateRequest(createMatchSchema), this.matchController.createMatch);
-    this.router.patch("/:id", validateRequest(updateMatchSchema), this.matchController.updateMatch);
-    this.router.delete("/:id", validateRequest(matchIdParamSchema), this.matchController.deleteMatch);
+    this.router.post(
+      "/",
+      authenticateRequest,
+      authorizeRoles([ROLES.ADMIN, ROLES.SUPER_ADMIN]),
+      validateRequest(createMatchSchema),
+      this.matchController.createMatch,
+    );
+    this.router.patch(
+      "/:id",
+      authenticateRequest,
+      authorizeRoles([ROLES.ADMIN, ROLES.SUPER_ADMIN]),
+      validateRequest(updateMatchSchema),
+      this.matchController.updateMatch,
+    );
+    this.router.delete(
+      "/:id",
+      authenticateRequest,
+      authorizeRoles([ROLES.ADMIN, ROLES.SUPER_ADMIN]),
+      validateRequest(matchIdParamSchema),
+      this.matchController.deleteMatch,
+    );
   }
 
   getRouter() {
