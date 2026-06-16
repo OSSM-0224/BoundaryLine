@@ -1,4 +1,4 @@
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import {
   Zap,
@@ -14,7 +14,6 @@ import {
   BookOpen,
 } from "lucide-react";
 import Navbar from "../../../shared/components/NavBar";
-
 
 // ─── Tailwind config (injected via CDN in real app; kept as reference) ───────
 // Colors, spacing, font-sizes are from the original tailwind.config.
@@ -141,8 +140,9 @@ function LiveMatchCard({ accentVariant, label, team1, team2, status }) {
 
       <div className="mt-6 pt-4 border-t border-white/5">
         <p
-          className={`text-sm ${status.highlight ? "text-[#94d5a5]" : "text-[#c0c9bf]"
-            }`}
+          className={`text-sm ${
+            status.highlight ? "text-[#94d5a5]" : "text-[#c0c9bf]"
+          }`}
         >
           {status.text}
         </p>
@@ -187,11 +187,19 @@ function RecentResultRow({ label, result, team1Score, team2Score }) {
 }
 
 /** Feature card */
-function FeatureCard({ icon: Icon, iconColor, bgColor, title, description, highlighted }) {
+function FeatureCard({
+  icon: Icon,
+  iconColor,
+  bgColor,
+  title,
+  description,
+  highlighted,
+}) {
   return (
     <GlassCard
-      className={`p-10 rounded-2xl flex flex-col items-center text-center ${highlighted ? "border-[#94d5a5]/20 bg-[#94d5a5]/5" : ""
-        }`}
+      className={`p-10 rounded-2xl flex flex-col items-center text-center ${
+        highlighted ? "border-[#94d5a5]/20 bg-[#94d5a5]/5" : ""
+      }`}
     >
       <div
         className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 ${bgColor}`}
@@ -329,9 +337,27 @@ const features = [
 ];
 
 const players = [
-  { name: "Virat Kohli", country: "India", role: "Batsman", rank: 1, rankLabel: "ODI Rank" },
-  { name: "Rashid Khan", country: "AFG", role: "Bowler", rank: 1, rankLabel: "T20 Rank" },
-  { name: "Joe Root", country: "ENG", role: "Batsman", rank: 2, rankLabel: "Test Rank" },
+  {
+    name: "Virat Kohli",
+    country: "India",
+    role: "Batsman",
+    rank: 1,
+    rankLabel: "ODI Rank",
+  },
+  {
+    name: "Rashid Khan",
+    country: "AFG",
+    role: "Bowler",
+    rank: 1,
+    rankLabel: "T20 Rank",
+  },
+  {
+    name: "Joe Root",
+    country: "ENG",
+    role: "Batsman",
+    rank: 2,
+    rankLabel: "Test Rank",
+  },
 ];
 
 const newsArticles = [
@@ -344,7 +370,8 @@ const newsArticles = [
   {
     category: "Analysis",
     headline: "Pitch Report: What to expect in Perth",
-    excerpt: "The cracks are showing. Will it favor the seamers or the spinners?",
+    excerpt:
+      "The cracks are showing. Will it favor the seamers or the spinners?",
     imgPlaceholder: "Cricket ball close-up",
   },
 ];
@@ -352,13 +379,12 @@ const newsArticles = [
 // ─── Main App ─────────────────────────────────────────────────────────────────
 
 export default function BoundaryLine() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const carouselRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
-
 
   // Carousel drag-to-scroll
   const onMouseDown = (e) => {
@@ -372,7 +398,8 @@ export default function BoundaryLine() {
     if (!isDragging.current) return;
     e.preventDefault();
     const x = e.pageX - carouselRef.current.offsetLeft;
-    carouselRef.current.scrollLeft = scrollLeft.current - (x - startX.current) * 2;
+    carouselRef.current.scrollLeft =
+      scrollLeft.current - (x - startX.current) * 2;
   };
 
   const scrollCarousel = (dir) => {
@@ -396,9 +423,7 @@ export default function BoundaryLine() {
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
 
-
       <Navbar />
-
 
       <main className="pt-20">
         {/* ── Hero ───────────────────────────────────────────────────────── */}
@@ -423,7 +448,10 @@ export default function BoundaryLine() {
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <Button variant="primary">
+                <Button
+                  variant="primary"
+                  onClick={() => navigate("/scoreboard")}
+                >
                   View Live Scores <Zap className="w-5 h-5" />
                 </Button>
                 <Button variant="secondary">Get Started</Button>
@@ -441,7 +469,9 @@ export default function BoundaryLine() {
                     <div className="w-3 h-3 rounded-full bg-[#97d940]/50" />
                     <div className="w-3 h-3 rounded-full bg-[#94d5a5]/50" />
                   </div>
-                  <span className="text-xs text-[#c0c9bf]">Live Insights Hub</span>
+                  <span className="text-xs text-[#c0c9bf]">
+                    Live Insights Hub
+                  </span>
                 </div>
                 {/* Placeholder dashboard */}
                 <div className="rounded-lg border border-white/5 bg-[#1a1c1f] h-64 flex items-center justify-center">
@@ -459,7 +489,9 @@ export default function BoundaryLine() {
                     <div className="h-2 w-48 bg-[#94d5a5]/30 rounded-full mx-auto">
                       <div className="h-full w-3/5 bg-[#94d5a5] rounded-full" />
                     </div>
-                    <p className="text-xs text-[#c0c9bf]">Win Probability • Live</p>
+                    <p className="text-xs text-[#c0c9bf]">
+                      Win Probability • Live
+                    </p>
                   </div>
                 </div>
               </div>
@@ -471,7 +503,9 @@ export default function BoundaryLine() {
         <section className="py-10 bg-[#1a1c1f]/30 overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 mb-6 flex justify-between items-end">
             <div>
-              <h2 className="text-3xl font-bold text-[#e2e2e6]">Live Matches</h2>
+              <h2 className="text-3xl font-bold text-[#e2e2e6]">
+                Live Matches
+              </h2>
               <p className="text-[#c0c9bf] text-base">
                 Matches currently in progress worldwide
               </p>
@@ -506,22 +540,42 @@ export default function BoundaryLine() {
             {/* Upcoming */}
             <div>
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-3xl font-bold text-[#e2e2e6]">Upcoming Matches</h3>
-                <a href="#" className="text-[#94d5a5] text-xs font-semibold hover:underline">
+                <h3 className="text-3xl font-bold text-[#e2e2e6]">
+                  Upcoming Matches
+                </h3>
+                <a
+                  href="#"
+                  className="text-[#94d5a5] text-xs font-semibold hover:underline"
+                >
                   View All
                 </a>
               </div>
               <div className="space-y-4">
-                <UpcomingMatchRow day="24" month="Oct" title="NZ vs SL • 1st ODI" venue="Auckland Cricket Ground" />
-                <UpcomingMatchRow day="25" month="Oct" title="PAK vs WI • T20I" venue="Gaddafi Stadium" />
+                <UpcomingMatchRow
+                  day="24"
+                  month="Oct"
+                  title="NZ vs SL • 1st ODI"
+                  venue="Auckland Cricket Ground"
+                />
+                <UpcomingMatchRow
+                  day="25"
+                  month="Oct"
+                  title="PAK vs WI • T20I"
+                  venue="Gaddafi Stadium"
+                />
               </div>
             </div>
 
             {/* Recent Results */}
             <div>
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-3xl font-bold text-[#e2e2e6]">Recent Results</h3>
-                <a href="#" className="text-[#94d5a5] text-xs font-semibold hover:underline">
+                <h3 className="text-3xl font-bold text-[#e2e2e6]">
+                  Recent Results
+                </h3>
+                <a
+                  href="#"
+                  className="text-[#94d5a5] text-xs font-semibold hover:underline"
+                >
                   View All
                 </a>
               </div>
@@ -547,10 +601,12 @@ export default function BoundaryLine() {
         <section className="py-10 bg-[#0c0e11]">
           <div className="max-w-[1440px] mx-auto px-6">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-[#e2e2e6]">Advanced Features</h2>
+              <h2 className="text-3xl font-bold text-[#e2e2e6]">
+                Advanced Features
+              </h2>
               <p className="text-[#c0c9bf] max-w-xl mx-auto mt-2">
-                Experience the game with depth and detail that standard scorecards simply
-                can't match.
+                Experience the game with depth and detail that standard
+                scorecards simply can't match.
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
@@ -567,7 +623,9 @@ export default function BoundaryLine() {
             {/* News */}
             <div className="lg:col-span-2 space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-3xl font-bold text-[#e2e2e6]">Latest News</h2>
+                <h2 className="text-3xl font-bold text-[#e2e2e6]">
+                  Latest News
+                </h2>
                 <button className="text-[#c0c9bf] hover:text-[#94d5a5] transition-colors flex items-center gap-1 text-sm">
                   Browse News <ArrowRight className="w-4 h-4" />
                 </button>
@@ -601,11 +659,13 @@ export default function BoundaryLine() {
               <div className="w-8 h-8 rounded-full bg-[#94d5a5] flex items-center justify-center font-black text-[#00391c] text-sm">
                 BL
               </div>
-              <span className="text-2xl font-bold text-[#94d5a5]">BoundaryLine</span>
+              <span className="text-2xl font-bold text-[#94d5a5]">
+                BoundaryLine
+              </span>
             </div>
             <p className="text-sm text-[#c0c9bf]">
-              The world's most advanced cricket analytics platform. Serving over 10
-              million fans globally with real-time data.
+              The world's most advanced cricket analytics platform. Serving over
+              10 million fans globally with real-time data.
             </p>
             <div className="flex gap-4">
               {[Globe, Share2, Mail].map((Icon, i) => (
@@ -626,7 +686,12 @@ export default function BoundaryLine() {
           />
           <FooterLinkGroup
             title="Resources"
-            links={["Stats Hub", "API for Developers", "Newsroom", "Contact Us"]}
+            links={[
+              "Stats Hub",
+              "API for Developers",
+              "Newsroom",
+              "Contact Us",
+            ]}
           />
 
           {/* App download */}
@@ -634,7 +699,11 @@ export default function BoundaryLine() {
             <h4 className="font-bold text-[#e2e2e6]">Get the App</h4>
             <div className="flex flex-col gap-2">
               {[
-                { Icon: Smartphone, top: "Download on the", bottom: "App Store" },
+                {
+                  Icon: Smartphone,
+                  top: "Download on the",
+                  bottom: "App Store",
+                },
                 { Icon: BookOpen, top: "Get it on", bottom: "Google Play" },
               ].map(({ Icon, top, bottom }) => (
                 <button
@@ -643,7 +712,9 @@ export default function BoundaryLine() {
                 >
                   <Icon className="w-8 h-8 text-[#e2e2e6]" />
                   <div className="text-left">
-                    <p className="text-[10px] text-[#c0c9bf] uppercase">{top}</p>
+                    <p className="text-[10px] text-[#c0c9bf] uppercase">
+                      {top}
+                    </p>
                     <p className="text-sm font-bold text-[#e2e2e6]">{bottom}</p>
                   </div>
                 </button>
