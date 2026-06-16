@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import LiveMatchHeader from "../components/LiveMatchHeader.jsx";
+import LiveMatchHeader from "../components/LiveMatchheader.jsx";
 import OverTimeline from "../components/OverTimeline.jsx";
 import WinProbability from "../components/WinProbabbility.jsx";
 import AiInsights from "../components/AiInsights.jsx";
