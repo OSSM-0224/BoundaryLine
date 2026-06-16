@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
-import CricPulse from "../features/landing page/pages/LandingPage.jsx";
+import LandingPage from "../features/landing page/pages/LandingPage.jsx";
 import FixturesPage from "../features/fixtures/pages/FixturesPage.jsx";
 import ScoreboardPage from "../features/scoreboard/pages/ScoreBoard.jsx";
 import ScorerConsolePage from "../features/scorer-console/pages/ScorerConsolePage.jsx";
@@ -43,7 +43,7 @@ const ProtectedScorerRoute = ({ children }) => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <CricPulse />,
+    element: <LandingPage />,
   },
   {
     path: "/matches",
@@ -145,6 +145,7 @@ const router = createBrowserRouter([
     element: <Navigate to="/" replace />,
   },
 
+
   // ye test route hai agr sahi chla tho use kr lenge om bhai se bt ke
 
   {
@@ -171,7 +172,7 @@ const router = createBrowserRouter([
         element: <Navigate to="/admin/register" replace />
       },
       {
-        path: "userregiste",
+        path: "userregister",
         element: <UserRegisterForm />
       },
 

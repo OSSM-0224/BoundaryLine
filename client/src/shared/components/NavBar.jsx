@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
     { label: "Scores", path: "/" },
-    { label: "Schedule", path: "/schedule" },
+    { label: "Schedule", path: "/matches" },
     { label: "Teams", path: "/teams" },
     { label: "Rankings", path: "/ranking" },
     { label: "News", path: "/news" },
@@ -38,7 +38,7 @@ function Navbar() {
                         className="flex items-center gap-3 shrink-0"
                     >
                         <div className="w-10 h-10 rounded-full bg-[#94d5a5] flex items-center justify-center font-black text-[#00391c]">
-                            CP
+                            BL
                         </div>
 
                         <span className="text-xl lg:text-2xl font-bold text-[#94d5a5]">
@@ -87,7 +87,7 @@ function Navbar() {
 
                         <button
                             onClick={() =>
-                                navigate("/auth/userlogin")
+                                navigate("/userlogin")
                             }
                             className="
                                 hidden
@@ -104,7 +104,7 @@ function Navbar() {
 
                         <button
                             onClick={() =>
-                                navigate("/auth/userregister")
+                                navigate("/userregister")
                             }
                             className="
                                 hidden

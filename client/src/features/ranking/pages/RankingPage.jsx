@@ -6,8 +6,8 @@ import RankingTabs from "../component/RankingTabs";
 import RankingsTable from "../component/RankingTable";
 import CategoryLeaders from "../component/CategoryLeaders";
 
-import Navbar from "../../../shared/component/NavBar";
-import PageFooter from "../../../shared/component/PagesFooter";
+import Navbar from "../../../shared/components/NavBar";
+import PageFooter from "../../../shared/components/PagesFooter";
 
 function RankingPage() {
     const [activeTab, setActiveTab] =

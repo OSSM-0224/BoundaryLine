@@ -1,5 +1,5 @@
-import Navbar from "../../../shared/component/NavBar";
-import PageFooter from "../../../shared/component/PagesFooter";
+import Navbar from "../../../shared/components/NavBar";
+import PageFooter from "../../../shared/components/PagesFooter";
 import FeaturedArticles from "../component/FeaturedArticles";
 import NewsCards from "../component/NewsCards";
 import NewsCardSkeleton from "../component/NewsCardSkeleton";

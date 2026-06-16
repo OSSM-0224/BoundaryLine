@@ -12,7 +12,7 @@ import {
   Smartphone,
   BookOpen,
 } from "lucide-react";
-import Navbar from "../../../shared/component/NavBar";
+import Navbar from "../../../shared/components/NavBar";
 
 
 // ─── Tailwind config (injected via CDN in real app; kept as reference) ───────
@@ -350,7 +350,7 @@ const newsArticles = [
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 
-export default function CricPulse() {
+export default function BoundaryLine() {
   const carouselRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -598,7 +598,7 @@ export default function CricPulse() {
               <div className="w-8 h-8 rounded-full bg-[#94d5a5] flex items-center justify-center font-black text-[#00391c] text-sm">
                 CP
               </div>
-              <span className="text-2xl font-bold text-[#94d5a5]">CricPulse</span>
+              <span className="text-2xl font-bold text-[#94d5a5]">BoundaryLine</span>
             </div>
             <p className="text-sm text-[#c0c9bf]">
               The world's most advanced cricket analytics platform. Serving over 10
@@ -652,7 +652,7 @@ export default function CricPulse() {
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-white/5 text-center px-6">
           <p className="text-sm text-[#97d940]">
-            © 2024 CricPulse Analytics. All rights reserved.
+            © 2024 BoundaryLine Analytics. All rights reserved.
           </p>
           <div className="flex justify-center gap-4 mt-2 text-xs text-[#c0c9bf]">
             {["Privacy", "Terms", "Contact"].map((link) => (
