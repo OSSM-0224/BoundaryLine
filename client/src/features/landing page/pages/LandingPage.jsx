@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef,useState } from "react";
+import { useNavigate } from "react-router";
 import {
   Zap,
   ChevronLeft,
@@ -351,6 +352,8 @@ const newsArticles = [
 // ─── Main App ─────────────────────────────────────────────────────────────────
 
 export default function BoundaryLine() {
+  const navigate = useNavigate()
+  const [scrolled, setScrolled] = useState(false);
   const carouselRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -596,7 +599,7 @@ export default function BoundaryLine() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-[#94d5a5] flex items-center justify-center font-black text-[#00391c] text-sm">
-                CP
+                BL
               </div>
               <span className="text-2xl font-bold text-[#94d5a5]">BoundaryLine</span>
             </div>
