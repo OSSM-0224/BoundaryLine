@@ -6,7 +6,7 @@ import ScorerConsolePage from "../features/scorer-console/pages/ScorerConsolePag
 import ScorerWorkspace from "../features/scorer-console/pages/ScorerWorkspace.jsx";
 import { RoleGuard } from "../app/guards/RoleGuard.jsx";
 import { UserRole } from "../features/scorer-console/pages/type.js";
-import AnalyticsPage from "../feature/analytics/pages/AnalyticsPage.jsx";
+import AnalyticsPage from "../features/analytics/pages/AnalyticsPage.jsx";
 import MainLayout from "../layout/MainLayout.jsx";
 import DuplicateFixture from "../features/fixtures/pages/duplicateFixture.jsx";
 import UserRegisterForm from "../features/auth/user/component/UserRegisterForm.jsx";
@@ -14,7 +14,7 @@ import UserLoginForm from "../features/auth/user/component/UserLoginForm.jsx";
 import AdminRegisterForm from "../features/auth/admin/components/AdminRegisterForm.jsx";
 import AdminLoginForm from "../features/auth/admin/components/AdminLoginForm.jsx";
 import NewsPage from "../features/news/pages/NewsPage.jsx";
-import TeamPage from "../feature/all-team/page/TeamPage.jsx";
+import TeamPage from "../features/all-team/page/TeamPage.jsx";
 import RankingPage from "../features/ranking/pages/RankingPage.jsx";
 
 const ComingSoonPage = ({ title, description }) => {
@@ -138,41 +138,47 @@ const router = createBrowserRouter([
     element: <Navigate to="/" replace />,
   },
 
+
   // ye test route hai agr sahi chla tho use kr lenge om bhai se bt ke
 
-  {
-    element: <MainLayout />,
-    children: [
-      {
-        path: "/analytics",
-        element: <AnalyticsPage />,
-      },
-      {
-        path: "/matches",
-        element: <FixturesPage />,
-      },
-      {
-        path: "testfx",
-        element: <DuplicateFixture />,
-      },
-      {
-        path: "adminlogin",
-        element: <AdminLoginForm />,
-      },
-      {
-        path: "register",
-        element: <AdminRegisterForm />,
-      },
-      {
-        path: "userregiste",
-        element: <UserRegisterForm />,
-      },
-    ],
-  },
-  {
-    path: "userlogin",
-    element: <UserLoginForm />,
-  },
+//   {
+//     element: <MainLayout />,
+//     children: [
+//       {
+//         path: "/analytics",
+//         element: <AnalyticsPage />,
+//       },
+//       {
+//         path: "/matches",
+//         element: <FixturesPage />,
+//       },
+//       {
+//         path: "testfx",
+//         element: <DuplicateFixture />,
+//       },
+//       {
+//         path: "adminlogin",
+//         element: <AdminLoginForm />,
+//       },
+//       {
+//         path: "register",
+//         element: <AdminRegisterForm />,
+//       },
+//       {
+// <<<<<<< HEAD
+//         path: "userregister",
+//         element: <UserRegisterForm />
+// =======
+//         path: "userregiste",
+//         element: <UserRegisterForm />,
+// >>>>>>> fc4e7af147e9c21515bba9b38a90c75352657654
+//       },
+//     ],
+//   },
+//   {
+//     path: "userlogin",
+//     element: <UserLoginForm />,
+//   },
 
   //....
 ]);
