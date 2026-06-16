@@ -25,6 +25,19 @@ export const initializeSocket = (server) => {
       );
     });
 
+      socket.on(
+      "leave-match",
+      (matchId) => {
+        const room = `match:${matchId}`;
+
+        socket.leave(room);
+
+        console.log(
+          `${socket.id} left ${room}`
+        );
+      }
+    );
+
     socket.on("disconnect", () => {
       console.log(
         `Socket Disconnected: ${socket.id}`
