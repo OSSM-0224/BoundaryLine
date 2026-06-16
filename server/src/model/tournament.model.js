@@ -1,5 +1,6 @@
 import mongoose, { mongo } from "mongoose";
-import { FORMAT } from "../constant/format.constant";
+import { FORMAT } from "../constant/format.constant.js";
+import { TOURNAMENT_STATUS } from "../constant/series.constant.js";
 
 const tournamentSchema = mongoose.Schema({
     name: {type: String, required: true, trim: true},
@@ -31,12 +32,12 @@ const tournamentSchema = mongoose.Schema({
         default: false
     },
     createdBy: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
     updatedBy: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 },{
